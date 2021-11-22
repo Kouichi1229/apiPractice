@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <title>API 練習</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Microsoft JhengHei UI", "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        }
+        
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-weight: 600;
+        }
+        
+        .h1,
+        .h2,
+        .h3,
+        .h4,
+        .h5,
+        .h6 {
+            font-weight: 700;
+        }
+    </style>
+
+</head>
+
+<body style='background-color: transparent;'>
+    <select class="area"></select>
+
+    <div class="text-center">
+        <div class="h5">日期:</div>
+        <div class="display-4"><span class='date'></span></div>
+    </div>
+    <div class="container-fluid my-4">
+        <div class="row">
+            <div class="col-lg-3 col-6">
+                <div class="card h-100">
+                    <div class="card-body d-flex justify-content-around align-items-center">
+                        <img src="https://img.icons8.com/fluency/96/000000/temperature.png" />
+                        <!-- 96px -->
+                        <div class="text-center">
+                            <div class="h5">溫度</div>
+                            <div class="h3"><span class='tem'></span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-6">
+                <div class="card  h-100">
+                    <div class="card-body d-flex justify-content-around align-items-center">
+                        <img src="https://img.icons8.com/external-inipagistudio-mixed-inipagistudio/64/000000/external-wind-weather-forecast-inipagistudio-mixed-inipagistudio.png" />
+                        <div class="text-center">
+                            <div class="h5">風速</div>
+                            <div class="display-4"><span class='winds'></span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-6">
+                <div class="card  h-100">
+                    <div class="card-body d-flex justify-content-around align-items-center">
+                        <img src="https://img.icons8.com/external-justicon-flat-justicon/64/000000/external-humidity-weather-justicon-flat-justicon.png" />
+                        <div class="text-center">
+                            <div class="h5">濕度</div>
+                            <div class="display-4"><span class='humidity'></span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-6">
+                <div class="card  h-100">
+                    <div class="card-body d-flex justify-content-around align-items-center">
+                        <img src="https://img.icons8.com/external-wanicon-flat-wanicon/64/000000/external-sun-ecology-environment-wanicon-flat-wanicon.png" />
+                        <div class="text-center">
+                            <div class="h5">本日最高溫</div>
+                            <div class="display-4"><span class='sun'></span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid my-4">
+        <div class="row">
+            <div class="col-lg-3 col-6">
+                <div class="card h-100">
+                    <div class="card-body d-flex justify-content-around align-items-center">
+                        <img src="https://img.icons8.com/fluency/96/000000/wet.png" />
+                        <div class="text-center">
+                            <div class="h5">累積雨量</div>
+                            <div class="h3"><span class='h_24r'></span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-6">
+                <div class="card  h-100">
+                    <div class="card-body d-flex justify-content-around align-items-center">
+                        <i class="fas fa-user fa-3x text-secondary d-none d-sm-block"></i>
+                        <div class="text-center">
+                            <div class="h5"></div>
+                            <div class="display-4"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-6">
+                <div class="card  h-100">
+                    <div class="card-body d-flex justify-content-around align-items-center">
+                        <i class="fas fa-clipboard-list fa-3x text-secondary d-none d-sm-block"></i>
+                        <div class="text-center">
+                            <div class="h5"></div>
+                            <div class="display-4"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-6">
+                <div class="card  h-100">
+                    <div class="card-body d-flex justify-content-around align-items-center">
+                        <i class="fas fa-box-open fa-3x text-secondary d-none d-sm-block"></i>
+                        <div class="text-center">
+                            <div class="h5"></div>
+                            <div class="display-4"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="jumbotron">
+            <p></p>
+            <p>Copyright © 2021 Izumi. All rights reserved.</p>
+            <p>版權所有© 2021 Izumi</p>
+        </div>
+    </div>
+    <!-- jQuery and JavaScript Bundle with Popper -->
+    <script src='./watherStationApijs'></script>
+</body>
+</body>
+
+</html>
