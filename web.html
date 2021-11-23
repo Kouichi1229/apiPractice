@@ -1,0 +1,135 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+
+<body style='background-color: transparent;'>
+    <h3>選擇測站:</h3>
+    <select class="area form-control-lg"></select>
+    <p></p>
+    <p class="h5">日期:<span class='date'></span></p>
+
+    <div class="container-fluid my-4">
+        <div class="row">
+            <div class="col-lg-3 col-6">
+                <div class="card h-100">
+                    <div class="card-body d-flex justify-content-around align-items-center">
+                        <img src="https://img.icons8.com/fluency/96/000000/temperature.png" />
+                        <!-- 96px -->
+                        <div class="text-center">
+                            <div class="h5">溫度</div>
+                            <div class="h3"><span class='tem'></span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-6">
+                <div class="card  h-100">
+                    <div class="card-body d-flex justify-content-around align-items-center">
+                        <img src="https://img.icons8.com/external-inipagistudio-mixed-inipagistudio/64/000000/external-wind-weather-forecast-inipagistudio-mixed-inipagistudio.png" />
+                        <div class="text-center">
+                            <div class="h5">風速</div>
+                            <div class="h3"><span class='winds'></span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-6">
+                <div class="card  h-100">
+                    <div class="card-body d-flex justify-content-around align-items-center">
+                        <img src="https://img.icons8.com/external-justicon-flat-justicon/64/000000/external-humidity-weather-justicon-flat-justicon.png">
+                        <div class="text-center">
+                            <div class="h5">濕度</div>
+                            <div class="h3"><span class='humidity'></span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-6">
+                <div class="card  h-100">
+                    <div class="card-body d-flex justify-content-around align-items-center">
+                        <img src="https://img.icons8.com/fluency/96/000000/wet.png" />
+                        <div class="text-center">
+                            <div class="h5">累積雨量</div>
+                            <div class="h3"><span class='h_24r'></span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <p>註:-99表示尚未有資料</p>
+    <script>
+        //指定DOM
+        var xhr = new XMLHttpRequest();
+        var area = document.querySelector('.area');
+        var date = document.querySelector('.date');
+        var tem = document.querySelector('.tem');
+        var winds = document.querySelector('.winds');
+        var humidity = document.querySelector('.humidity');
+        var rain_24hr = document.querySelector('.h_24r');
+
+        //綁定監聽事件
+        area.addEventListener('change', showWeather, false);
+
+
+
+        //串接台灣天氣api，將城市名稱代入html的選單中
+        function getWeather() {
+            xhr.open('get', 'https://opendata.cwb.gov.tw/api/v1/rest/datastore/O-A0001-001?Authorization=CWB-1EF84EFB-3A18-45EE-AF0A-5BB8D44C13F1&elementName=WDSD,TEMP,HUMD,H_24R&parameterName%EF%BC%8C=', true);
+            xhr.send(null);
+            xhr.onload = function() {
+                var dataObject = JSON.parse(xhr.responseText);
+                var len = dataObject.records.location.length;
+                for (var i = 0; i < len; i++) {
+                    var city = dataObject.records.location[i].locationName;
+                    var option = document.createElement('option');
+                    var City_ = dataObject.records.location[i].parameter[0].parameterValue;
+                    if (City_ == '臺北市' | City_ == '新北市') {
+                        option.textContent = city;
+                        area.appendChild(option);
+                    }
+
+
+                }
+                showWeather();
+            }
+        }
+        getWeather();
+
+
+        //選擇城市後，顯示相對應天氣狀況
+        function showWeather(e) {
+            /*顯示預設值可以在 xhr.onload() 裡面執行 showWeather()，然後在 showWeather()，裡面增加判斷式若沒有 e 則設定 select 的預設值，反之則是設定 e.target.value*/
+            var select;
+            if (!e) {
+                select = 'Taipei';
+            } else {
+                select = e.target.value;
+            }
+            var dataObject = JSON.parse(xhr.responseText);
+            var len = dataObject.records.location.length;
+            for (var i = 0; i < len; i++) {
+                var temList = dataObject.records.location[i].weatherElement[1].elementValue;
+                var windsList = dataObject.records.location[i].weatherElement[0].elementValue;
+                var humidityList = dataObject.records.location[i].weatherElement[2].elementValue;
+                var datelist = dataObject.records.location[i].time.obsTime;
+                var rainList = dataObject.records.location[i].weatherElement[3].elementValue;
+
+                if (select == dataObject.records.location[i].locationName) {
+                    tem.textContent = temList + '度';
+                    winds.textContent = windsList + '(M/s)';
+                    humidity.textContent = humidityList * 100 + '(%)';
+                    date.textContent = datelist;
+                    rain_24hr.textContent = rainList;
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
