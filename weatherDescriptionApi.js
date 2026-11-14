@@ -10,7 +10,7 @@ var PoP = document.querySelector('.PoP');
 area.addEventListener('change', showWeatherDescription, false);
 
 function getWeatherDescription() {
-    xhr.open('get', 'https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=CWB-1EF84EFB-3A18-45EE-AF0A-5BB8D44C13F1&locationName=%E8%87%BA%E5%8C%97%E5%B8%82,%E6%96%B0%E5%8C%97%E5%B8%82');
+    xhr.open('get', 'https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=APIKey&locationName=%E8%87%BA%E5%8C%97%E5%B8%82,%E6%96%B0%E5%8C%97%E5%B8%82');
     xhr.send(null);
     xhr.onload = function() {
             var dataObject = JSON.parse(xhr.responseText);
