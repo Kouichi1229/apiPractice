@@ -15,7 +15,7 @@ area.addEventListener('change', showWeather, false);
 
 //串接台灣天氣api，將城市名稱代入html的選單中
 function getWeather() {
-    xhr.open('get', 'https://opendata.cwb.gov.tw/api/v1/rest/datastore/O-A0001-001?Authorization=CWB-1EF84EFB-3A18-45EE-AF0A-5BB8D44C13F1', true);
+    xhr.open('get', 'https://opendata.cwb.gov.tw/api/v1/rest/datastore/O-A0001-001?Authorization=APIKey', true);
     xhr.send(null);
     xhr.onload = function() {
         var dataObject = JSON.parse(xhr.responseText);
